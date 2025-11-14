@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { useLanguage } from "./LanguageContext";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language } = useLanguage();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -12,12 +14,21 @@ export function Header() {
     setIsMenuOpen(false);
   };
 
+  const navItems = {
+    about: { en: "About", zh: "关于" },
+    portfolio: { en: "Portfolio", zh: "作品集" },
+    skills: { en: "Skills", zh: "技能" },
+    contact: { en: "Contact", zh: "联系" }
+  };
+
+  const displayName = language === 'en' ? 'Qianli Zhang' : '张前利';
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-            <span className="font-medium text-lg">Qianli Zhang</span>
+            <span className="font-medium text-lg">{displayName}</span>
           </div>
           
           {/* Desktop Navigation */}
@@ -26,32 +37,32 @@ export function Header() {
               onClick={() => scrollToSection("about")}
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              About
+              {navItems.about[language]}
             </button>
             <button 
               onClick={() => scrollToSection("portfolio")}
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Portfolio
+              {navItems.portfolio[language]}
             </button>
             <button 
               onClick={() => scrollToSection("skills")}
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Skills
+              {navItems.skills[language]}
             </button>
             <button 
               onClick={() => scrollToSection("contact")}
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Contact
+              {navItems.contact[language]}
             </button>
-            <ThemeToggle />
+            <LanguageToggle />
           </nav>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
+            <LanguageToggle />
             <Button
               variant="ghost"
               size="sm"
@@ -71,25 +82,25 @@ export function Header() {
               onClick={() => scrollToSection("about")}
               className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
             >
-              About
+              {navItems.about[language]}
             </button>
             <button 
               onClick={() => scrollToSection("portfolio")}
               className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
             >
-              Portfolio
+              {navItems.portfolio[language]}
             </button>
             <button 
               onClick={() => scrollToSection("skills")}
               className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
             >
-              Skills
+              {navItems.skills[language]}
             </button>
             <button 
               onClick={() => scrollToSection("contact")}
               className="block px-3 py-2 text-muted-foreground hover:text-foreground transition-colors w-full text-left"
             >
-              Contact
+              {navItems.contact[language]}
             </button>
           </div>
         </div>

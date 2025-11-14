@@ -1,132 +1,79 @@
-import { Mail, Phone, MapPin, Linkedin, Github, Dribbble } from "lucide-react";
-import { Button } from "./ui/button";
+import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
 import { Card } from "./ui/card";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Label } from "./ui/label";
+import { useLanguage } from "./LanguageContext";
 
 export function Contact() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real application, you would handle form submission here
-    console.log("Form submitted");
-  };
+  const { language } = useLanguage();
 
   const contactInfo = [
     {
       icon: <Mail className="h-5 w-5" />,
-      label: "Email",
+      label: { en: "Email", zh: "邮箱" },
       value: "Jackpassingby@gmail.com",
       link: "mailto:Jackpassingby@gmail.com"
     },
     {
       icon: <Phone className="h-5 w-5" />,
-      label: "Phone",
+      label: { en: "Phone", zh: "电话" },
       value: "+86 139 1844 3136",
       link: "tel:+8613918443136"
     },
     {
       icon: <MapPin className="h-5 w-5" />,
-      label: "Location",
-      value: "Shanghai, China",
+      label: { en: "Location", zh: "位置" },
+      value: { en: "Shanghai, China", zh: "中国上海" },
       link: null
     }
   ];
 
-  const socialLinks = [
-    {
-      icon: <Linkedin className="h-5 w-5" />,
-      label: "LinkedIn",
-      link: "https://linkedin.com/in/qianlizhang"
+  const content = {
+    title: { en: "Let's Connect", zh: "联系我" },
+    subtitle: {
+      en: "I'm open to discussing new opportunities, collaborative projects, or simply connecting with fellow design professionals. Let's create something exceptional together.",
+      zh: "我愿意探讨新的机会、合作项目，或者与设计同行交流。让我们一起创造卓越的作品。"
     },
-    {
-      icon: <Github className="h-5 w-5" />,
-      label: "GitHub",
-      link: "https://github.com/qianlizhang"
+    getInTouch: { en: "Get In Touch", zh: "联系方式" },
+    intro: {
+      en: "With 10+ years of experience in enterprise SaaS design and proven leadership in building scalable design systems, I'm ready to bring strategic design thinking to your organization.",
+      zh: "拥有10年以上企业级SaaS设计经验和构建可扩展设计系统的领导能力，我已准备好为您的组织带来战略性设计思维。"
     },
-    {
-      icon: <Dribbble className="h-5 w-5" />,
-      label: "Dribbble",
-      link: "https://dribbble.com/qianlizhang"
+    connectWith: { en: "Connect With Me", zh: "社交媒体" },
+    professionalBg: { en: "Professional Background", zh: "专业背景" },
+    bgText: {
+      en: <>
+        <strong>Principal UI/UX Designer</strong> at Zuora Inc. (2011-2024)
+        <br />
+        <strong>Senior UI Designer</strong> at Protime Consulting (2003-2011)
+        <br />
+        Bachelor of Environmental Planning, Nanjing University
+      </>,
+      zh: <>
+        Zuora Inc. <strong>资深UI/UX设计师</strong> (2011-2024)
+        <br />
+        Protime Consulting <strong>高级UI设计师</strong> (2003-2011)
+        <br />
+        南京大学 环境规划学士
+      </>
     }
-  ];
+  };
 
   return (
     <section id="contact" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-6 mb-16">
-          <h2 className="text-3xl md:text-4xl font-medium">Let's Connect</h2>
+          <h2 className="text-3xl md:text-4xl font-medium">{content.title[language]}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            I'm open to discussing new opportunities, collaborative projects, 
-            or simply connecting with fellow design professionals. Let's create something exceptional together.
+            {content.subtitle[language]}
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <Card className="p-8 border-0 shadow-sm">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" placeholder="John" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" placeholder="Doe" required />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="john@company.com" required />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="company">Company</Label>
-                <Input id="company" placeholder="Your Company" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="inquiryType">Inquiry Type</Label>
-                <select 
-                  id="inquiryType"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  required
-                >
-                  <option value="">Select inquiry type</option>
-                  <option value="job">Job Opportunity</option>
-                  <option value="consulting">Consulting Project</option>
-                  <option value="collaboration">Design Collaboration</option>
-                  <option value="speaking">Speaking Engagement</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea 
-                  id="message" 
-                  placeholder="Tell me about your opportunity, project, or how we might collaborate..."
-                  className="min-h-[120px]"
-                  required 
-                />
-              </div>
-              
-              <Button type="submit" className="w-full">
-                Send Message
-              </Button>
-            </form>
-          </Card>
-
+        <div className="max-w-3xl mx-auto">
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h3 className="text-xl font-medium">Get In Touch</h3>
+              <h3 className="text-xl font-medium">{content.getInTouch[language]}</h3>
               <p className="text-muted-foreground">
-                With 10+ years of experience in enterprise SaaS design and proven leadership 
-                in building scalable design systems, I'm ready to bring strategic design thinking 
-                to your organization.
+                {content.intro[language]}
               </p>
             </div>
 
@@ -134,20 +81,20 @@ export function Contact() {
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
                 <div key={index} className="flex items-center gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-[#4f39f6]/10 to-[#9810fa]/10 rounded-full flex items-center justify-center text-[#4f39f6]">
                     {info.icon}
                   </div>
                   <div>
-                    <div className="font-medium">{info.label}</div>
+                    <div className="font-medium">{info.label[language]}</div>
                     {info.link ? (
                       <a 
                         href={info.link}
                         className="text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {info.value}
+                        {typeof info.value === 'string' ? info.value : info.value[language]}
                       </a>
                     ) : (
-                      <div className="text-muted-foreground">{info.value}</div>
+                      <div className="text-muted-foreground">{typeof info.value === 'string' ? info.value : info.value[language]}</div>
                     )}
                   </div>
                 </div>
@@ -156,33 +103,26 @@ export function Contact() {
 
             {/* Social Links */}
             <div className="space-y-4">
-              <h4 className="font-medium">Connect With Me</h4>
+              <h4 className="font-medium">{content.connectWith[language]}</h4>
               <div className="flex gap-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                    aria-label={social.label}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
+                <a
+                  href="https://www.linkedin.com/in/zhangqianli"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gradient-to-br from-[#4f39f6]/10 to-[#9810fa]/10 rounded-full flex items-center justify-center text-[#4f39f6] hover:bg-gradient-to-br hover:from-[#4f39f6] hover:to-[#9810fa] hover:text-white transition-all duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
               </div>
             </div>
 
             {/* Availability */}
             <Card className="p-6 border-0 bg-accent/50">
               <div className="space-y-2">
-                <h4 className="font-medium">Professional Background</h4>
+                <h4 className="font-medium">{content.professionalBg[language]}</h4>
                 <p className="text-sm text-muted-foreground">
-                  <strong>Principal UI/UX Designer</strong> at Zuora Inc. (2011-2024)
-                  <br />
-                  <strong>Senior UI Designer</strong> at Protime Consulting (2003-2011)
-                  <br />
-                  Bachelor of Environmental Planning, Nanjing University
+                  {content.bgText[language]}
                 </p>
               </div>
             </Card>

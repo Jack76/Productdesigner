@@ -1,7 +1,7 @@
 
-  # Graphic Designer Portfolio (Community)
+  # Product Designer Portfolio
 
-  This is a code bundle for Graphic Designer Portfolio (Community). The original project is available at https://www.figma.com/design/AVVLN4MBo20QPqN3S6Gg82/Graphic-Designer-Portfolio--Community-.
+  This is a code bundle for Product Designer Portfolio. The original project is available at https://www.figma.com/design/AVVLN4MBo20QPqN3S6Gg82/Product-Designer-Portfolio.
 
   ## Running the code
 
